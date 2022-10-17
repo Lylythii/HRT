@@ -186,11 +186,6 @@ public class RecipeRegistry {
         event.getRegistry().register(new ShapedOreRecipe(getRL("crank"),new ItemStack(Registry.CRANK,1),true,new Object[]{
                 " I", "II", "I ",
                 'I', new ItemStack(Registry.AXLE_WOOD)}).setRegistryName(getRL("crank")));
-        event.getRegistry().register(new ShapedOreRecipe(getRL("windvane"),new ItemStack(Registry.WINDVANE,1),true,new Object[]{
-                "NI ", " II", " G ",
-                'N', "nuggetIron",
-                'I', "ingotIron",
-                'G', new ItemStack(RegistryHandler.IRON_AXLE)}).setRegistryName(getRL("windvane")));
         event.getRegistry().register(new ShapedOreRecipe(getRL("hopper_wood"),new ItemStack(Registry.HOPPER_WOOD,1),true,new Object[]{
                 "W W", "WGW", " W ",
                 'W', "slabWood",
@@ -200,23 +195,7 @@ public class RecipeRegistry {
                 'W', "plankWood",
                 'I', "ingotIron",
                 'G', new ItemStack(Items.BOWL)}).setRegistryName(getRL("feeder")));
-        event.getRegistry().register(new ShapelessOreRecipe(getRL("cotton_candy_stick"),new ItemStack(Registry.COTTON_CANDY_STICK,1),new Object[]{
-                "stickWood",new ItemStack(Registry.COTTON_CANDY),new ItemStack(Registry.COTTON_CANDY)}).setRegistryName(getRL("cotton_candy_stick")));
 
-        event.getRegistry().register(new ShapedOreRecipe(getRL("thatch"),new ItemStack(Registry.THATCH,18),true,new Object[]{
-                "WWW",
-                "WWW",
-                'W', new ItemStack(Registry.THATCH_BLOCK)}).setRegistryName(getRL("thatch")));
-        event.getRegistry().register(new ShapedOreRecipe(getRL("thatch_bed"),new ItemStack(Registry.THATCH_BED,1),true,new Object[]{
-                "WWW",
-                'W', new ItemStack(Registry.THATCH_BLOCK)}).setRegistryName(getRL("thatch_bed")));
-
-
-        event.getRegistry().register(new ShapedOreRecipe(getRL("thatch_block"),new ItemStack(Registry.THATCH_BLOCK,1),true,new Object[]{
-                "WWW", "WWW", "WWW",
-                'W', new ItemStack(Registry.WHEAT_CHAFF)}).setRegistryName(getRL("thatch_block")));
-        event.getRegistry().register(new ShapelessOreRecipe(getRL("thatch_block_uncraft"),new ItemStack(Registry.WHEAT_CHAFF,9),new Object[]{
-                new ItemStack(Registry.THATCH_BLOCK)}).setRegistryName(getRL("thatch_block_uncraft")));
 
 
         quernRecipes.add(new QuernRecipe(getRL("reeds_to_sugar"),Lists.newArrayList(Ingredient.fromItem(Items.REEDS)),new ResultSet().stack(new ItemStack(Items.SUGAR,2)),0, Double.POSITIVE_INFINITY,300));
@@ -235,11 +214,6 @@ public class RecipeRegistry {
             quernRecipes.add(new QuernRecipe(getRL("lapis"),Lists.newArrayList(new OreIngredient("oreLapis")), new ResultSet().stack(new ItemStack(Items.DYE, 8 * ConfigManager.quernOreAmount, 4)), 20, Double.POSITIVE_INFINITY, 3000));
             quernRecipes.add(new QuernRecipe(getRL("quartz"),Lists.newArrayList(new OreIngredient("oreQuartz")), new ResultSet().stack(new ItemStack(Items.QUARTZ, 2 * ConfigManager.quernOreAmount)), 20, Double.POSITIVE_INFINITY, 3000));
         }
-        ginRecipes.add(new GinRecipe(getRL("cotton"),Lists.newArrayList(Ingredient.fromItem(Registry.COTTON)),new ResultSet().stack(new ItemStack(Registry.COTTON_WOOL,1)),new ResultSet().stack(new ItemStack(Registry.COTTON_SEED)),3, Double.POSITIVE_INFINITY,300));
-        ginRecipes.add(new GinRecipe(getRL("cotton_candy"),Lists.newArrayList(new IngredientSized(Ingredient.fromItem(Items.SUGAR),3)),new ResultSet().stack(new ItemStack(Registry.COTTON_CANDY,1)),Lists.newArrayList(),7, Double.POSITIVE_INFINITY,3000));
-
-        ginFills.put(Registry.COTTON_CANDY, new ResourceLocation(Rustichromia.MODID,"blocks/cotton_candy"));
-        ginFills.put(Registry.COTTON_WOOL, new ResourceLocation(Rustichromia.MODID,"blocks/cotton"));
 
         assemblerRecipes.add(new AssemblerRecipe(new ResourceLocation(Rustichromia.MODID,"stick_wood"),1,Lists.newArrayList(new IngredientSized(new OreIngredient("plankWood"),1)),new ResultSet().stack(new ItemStack(Items.STICK,2)),1, Double.POSITIVE_INFINITY,500));
         assemblerRecipes.add(new AssemblerRecipe(new ResourceLocation(Rustichromia.MODID,"torch"),1,Lists.newArrayList(new OreIngredient("stickWood"),new OreIngredient("gemCoal")),new ResultSet().stack(new ItemStack(Blocks.TORCH,5)),1, Double.POSITIVE_INFINITY,500));
@@ -258,9 +232,6 @@ public class RecipeRegistry {
         assemblerRecipes.add(new AssemblerRecipe(new ResourceLocation(Rustichromia.MODID,"hay_compactor"),2,new IngredientSet().ore("ingotIron",16).ore("gearIron",4).stack(new ItemStack(Blocks.HOPPER)).stack(new ItemStack(Blocks.PISTON,4)), new ResultSet().stack(new ItemStack(Registry.HAY_COMPACTOR,1)),10, Double.POSITIVE_INFINITY,2000));
         assemblerRecipes.add(new AssemblerRecipe(new ResourceLocation(Rustichromia.MODID,"feed_trough"),2,new IngredientSet().ore("plankWood",1).stack(new ItemStack(Items.BOWL)), new ResultSet().stack(new ItemStack(Registry.FEEDER,1)),5, Double.POSITIVE_INFINITY,1500));
 
-        hayCompactorRecipes.add(new HayCompactorRecipe(new ResourceLocation(Rustichromia.MODID, "wheat"), Lists.newArrayList(new IngredientSized(Ingredient.fromItem(Items.WHEAT),9)),new ResultSet().stack(new ItemStack(Blocks.HAY_BLOCK)), 10, 60, 1000));
-        hayCompactorRecipes.add(new HayCompactorRecipe(new ResourceLocation(Rustichromia.MODID, "haybale"), Lists.newArrayList(new IngredientSized(Ingredient.fromItem(Registry.WHEAT_CHAFF),9)),new ResultSet().stack(new ItemStack(Registry.THATCH_BLOCK)), 10, 60, 1000));
-        hayCompactorRecipes.add(new HayCompactorRecipe(new ResourceLocation(Rustichromia.MODID, "hayfeed"), Lists.newArrayList(new IngredientSized(Ingredient.fromItem(Registry.WHEAT_CHAFF),2)),new ResultSet().block(Registry.MOLTEN_HAY.getDefaultState(), new ItemStack(Registry.MOLTEN_HAY)), 1, 10, 400));
         hayCompactorRecipes.add(new HayCompactorRecipe(new ResourceLocation(Rustichromia.MODID, "melon"), Lists.newArrayList(new IngredientSized(Ingredient.fromItem(Items.MELON),9)),new ResultSet().stack(new ItemStack(Blocks.MELON_BLOCK)), 10, 60, 1000));
         hayCompactorRecipes.add(new HayCompactorRecipe(new ResourceLocation(Rustichromia.MODID, "nether_wart"), Lists.newArrayList(new IngredientSized(Ingredient.fromItem(Items.NETHER_WART),9)),new ResultSet().stack(new ItemStack(Blocks.NETHER_WART_BLOCK)), 10, 60, 1000));
 

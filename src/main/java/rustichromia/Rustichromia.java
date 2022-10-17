@@ -11,11 +11,7 @@ import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import rustichromia.cart.*;
-import rustichromia.entity.EntityCart;
-import rustichromia.entity.EntitySpear;
 import rustichromia.gui.GuiHandler;
-import rustichromia.handler.RestHandler;
 import rustichromia.handler.WindHandler;
 import rustichromia.handler.PistonHandler;
 import rustichromia.network.PacketHandler;
@@ -41,7 +37,6 @@ public class Rustichromia {
         MinecraftForge.EVENT_BUS.register(new RecipeRegistry());
         MinecraftForge.EVENT_BUS.register(PistonHandler.class);
         MinecraftForge.EVENT_BUS.register(WindHandler.class);
-        MinecraftForge.EVENT_BUS.register(RestHandler.class);
         MinecraftForge.EVENT_BUS.register(Attributes.class);
 
         if(Loader.isModLoaded(Rustic.MODID))
@@ -68,19 +63,13 @@ public class Rustichromia {
         GameRegistry.registerTileEntity(TileEntityAssembler.class, new ResourceLocation(MODID, "assembler"));
         GameRegistry.registerTileEntity(TileEntityGin.class, new ResourceLocation(MODID, "gin"));
         GameRegistry.registerTileEntity(TileEntityCrank.class, new ResourceLocation(MODID, "crank"));
-        GameRegistry.registerTileEntity(TileEntityWindVane.class, new ResourceLocation(MODID, "windvane"));
         GameRegistry.registerTileEntity(TileEntityHopperWood.class, new ResourceLocation(MODID, "hopper_wood"));
         GameRegistry.registerTileEntity(TileEntityMultiSlave.class, new ResourceLocation(MODID, "multiblock_slave"));
         GameRegistry.registerTileEntity(TileEntityHayCompactor.class, new ResourceLocation(MODID, "hay_compactor"));
         GameRegistry.registerTileEntity(TileEntityHayCompactorInlet.class, new ResourceLocation(MODID, "hay_compactor_inlet"));
         GameRegistry.registerTileEntity(TileEntityFeeder.class, new ResourceLocation(MODID, "feeder"));
-        GameRegistry.registerTileEntity(TileEntityCart.class, new ResourceLocation(MODID, "cart"));
-        GameRegistry.registerTileEntity(TileEntityCartControl.class, new ResourceLocation(MODID, "cart_control"));
 
         int id = 0;
-
-        EntityRegistry.registerModEntity(new ResourceLocation(Rustichromia.MODID,"spear"), EntitySpear.class, "spear", id++, this, 64, 1, true);
-        EntityRegistry.registerModEntity(new ResourceLocation(Rustichromia.MODID,"cart"), EntityCart.class, "cart", id++, this, 64, 1, true);
 
         Registry.init();
         if(Loader.isModLoaded(Rustic.MODID))
@@ -91,9 +80,4 @@ public class Rustichromia {
         PROXY.init();
     }
 
-    @Mod.EventHandler
-    public void onServerStopping(FMLServerStoppingEvent event) {
-        CartData.cleanup();
-        CartDataClient.cleanup();
-    }
 }

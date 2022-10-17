@@ -3,8 +3,6 @@ package rustichromia.proxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import rustichromia.entity.*;
 import rustichromia.particle.ParticleRenderer;
 import rustichromia.particle.ParticleSmoke;
 import rustichromia.tile.*;
@@ -26,19 +24,8 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAssembler.class, new TileEntityAssemblerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGin.class, new TileEntityGinRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrank.class, new TileEntityCrankRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWindVane.class, new TileEntityWindVaneRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHopperWood.class, new TileEntityHopperWoodRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHayCompactor.class, new TileEntityHayCompactorRenderer());
-        //ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCart.class, new TileEntityCartRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCartControl.class, new TileEntityCartControlRenderer());
-
-        RenderingRegistry.registerEntityRenderingHandler(EntitySpear.class, new RenderSpear.Factory());
-        RenderingRegistry.registerEntityRenderingHandler(EntityCart.class, new RenderCart.Factory());
-    }
-
-    @Override
-    public void init() {
-        LayerSpear.initialize();
     }
 
     @Override

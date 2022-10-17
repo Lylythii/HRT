@@ -17,16 +17,16 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.wynprice.cursemaven'
 
-version = "0.9"
-group= "rustichromia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Rustichromia"
+version = "1.0"
+group= "HRT" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "HRT"
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 jar {
     manifest {
-        attributes 'FMLAT': 'rustichromia_at.cfg'
+        attributes 'FMLAT': 'HRT_at.cfg'
     }
 }
 

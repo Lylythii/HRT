@@ -11,11 +11,9 @@ public class PacketHandler {
     private static int id = 0;
 
     public static void registerMessages(){
-        INSTANCE.registerMessage(MessageBlastDash.MessageHolder.class,MessageBlastDash.class,id ++,Side.SERVER);
         INSTANCE.registerMessage(MessageEntitySwing.MessageHolder.class,MessageEntitySwing.class,id ++,Side.CLIENT);
         INSTANCE.registerMessage(MessageSelectAssemblerRecipe.MessageHolder.class,MessageSelectAssemblerRecipe.class,id ++,Side.SERVER);
         INSTANCE.registerMessage(MessageUpdateRatiobox.MessageHolder.class,MessageUpdateRatiobox.class,id ++,Side.SERVER);
-        INSTANCE.registerMessage(MessageCartCleanup.MessageHolder.class,MessageCartCleanup.class,id ++,Side.CLIENT);
 
     }
 }

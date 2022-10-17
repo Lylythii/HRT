@@ -95,54 +95,6 @@ public class TileEntityGin extends TileEntityBasicMachine<GinRecipe> {
         return super.getCapability(capability, facing);
     }
 
-    @Override
-    public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        ItemStack heldItem = player.getHeldItem(hand);
-        if(Misc.isOre(heldItem,"stickWood") && hasCottonCandy(1)) {
-            removeCottonCandy(1);
-            heldItem.shrink(1);
-            if (heldItem.isEmpty()) {
-                heldItem = new ItemStack(Registry.COTTON_CANDY_STICK);
-            } else {
-                player.inventory.addItemStackToInventory(new ItemStack(Registry.COTTON_CANDY_STICK));
-            }
-            player.setHeldItem(hand, heldItem);
-        }
-
-        return false;
-    }
-
-    //TODO: generify
-    private boolean hasCottonCandy(int amount) {
-        int count = 0;
-        for (Result result : outputsInterior) {
-            if(result instanceof ResultItem) {
-                ItemStack stack = ((ResultItem) result).getStack();
-                if (stack.getItem() == Registry.COTTON_CANDY)
-                    count += stack.getCount();
-            }
-        }
-        return count >= amount;
-    }
-
-    //TODO: generify
-    private void removeCottonCandy(int amount) {
-        Iterator<Result> iterator = outputsInterior.iterator();
-        while(iterator.hasNext() && amount > 0){
-            Result result = iterator.next();
-            if(result instanceof ResultItem) {
-                ItemStack stack = ((ResultItem) result).getStack();
-                if (stack.getItem() == Registry.COTTON_CANDY) {
-                    int take = Math.min(stack.getCount(), amount);
-                    stack.shrink(take);
-                    if (stack.isEmpty())
-                        iterator.remove();
-                    amount -= take;
-                }
-            }
-        }
-    }
-
     private void ejectResultsInterior() {
         if (outputsInterior.isEmpty())
             return;

@@ -4,7 +4,6 @@ import mysticalmechanics.api.IGearBehavior;
 import mysticalmechanics.api.MysticalMechanicsAPI;
 import mysticalmechanics.handler.RegistryHandler;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -36,9 +35,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import rustichromia.block.*;
-import rustichromia.cart.*;
-import rustichromia.cart.content.ContentItems;
-import rustichromia.cart.control.*;
 import rustichromia.item.*;
 
 import javax.annotation.Nonnull;
@@ -47,10 +43,6 @@ import javax.annotation.Nullable;
 import static net.minecraftforge.fml.common.registry.GameRegistry.*;
 
 public class Registry {
-    @ObjectHolder("rustichromia:molten_steel")
-    public static BlockSnakeFluid MOLTEN_STEEL;
-    @ObjectHolder("rustichromia:block_steel")
-    public static Block BLOCK_STEEL;
     @ObjectHolder("rustichromia:receptacle")
     public static Block RECEPTACLE;
     @ObjectHolder("rustichromia:extruder")
@@ -79,26 +71,10 @@ public class Registry {
     public static Block ASSEMBLER_2;
     @ObjectHolder("rustichromia:assembler3")
     public static Block ASSEMBLER_3;
-    @ObjectHolder("rustichromia:cotton_seed")
-    public static Block COTTON_SEED;
-    @ObjectHolder("rustichromia:windvane")
-    public static Block WINDVANE;
     @ObjectHolder("rustichromia:hopper_wood")
     public static Block HOPPER_WOOD;
-    @ObjectHolder("rustichromia:thatch")
-    public static Block THATCH;
-    @ObjectHolder("rustichromia:thatch_block")
-    public static Block THATCH_BLOCK;
-    @ObjectHolder("rustichromia:molten_hay")
-    public static BlockSnakeFluid MOLTEN_HAY;
     @ObjectHolder("rustichromia:feeder")
     public static Block FEEDER;
-    @ObjectHolder("rustichromia:thatch_bed")
-    public static Block THATCH_BED;
-    @ObjectHolder("rustichromia:cart")
-    public static Block CART;
-    @ObjectHolder("rustichromia:cart_control")
-    public static Block CART_CONTROL;
 
     @ObjectHolder("rustichromia:hay_compactor")
     public static Block HAY_COMPACTOR;
@@ -115,30 +91,26 @@ public class Registry {
     public static Item DISK_SANDSTONE;
     @ObjectHolder("rustichromia:disk_red_sandstone")
     public static Item DISK_RED_SANDSTONE;
-    @ObjectHolder("rustichromia:spear")
-    public static Item SPEAR;
-    @ObjectHolder("rustichromia:blastspear")
-    public static Item BLASTSPEAR;
-    @ObjectHolder("rustichromia:shamshir")
-    public static Item SHAMSHIR;
-    @ObjectHolder("rustichromia:cotton_candy")
-    public static Item COTTON_CANDY;
-    @ObjectHolder("rustichromia:cotton_candy_stick")
-    public static Item COTTON_CANDY_STICK;
-    @ObjectHolder("rustichromia:cotton")
-    public static Item COTTON;
-    @ObjectHolder("rustichromia:cotton_wool")
-    public static Item COTTON_WOOL;
     @ObjectHolder("rustichromia:dust_wood")
     public static Item DUST_WOOD;
     @ObjectHolder("rustichromia:plate_wood")
     public static Item PLATE_WOOD;
     @ObjectHolder("rustichromia:dust_flour")
     public static Item DUST_FLOUR;
+	
     @ObjectHolder("rustichromia:wheat_chaff")
     public static Item WHEAT_CHAFF;
+    @ObjectHolder("rustichromia:barley_chaff")
+    public static Item BARLEY_CHAFF;
+    @ObjectHolder("rustichromia:oat_chaff")
+    public static Item OAT_CHAFF;
+    @ObjectHolder("rustichromia:rice_chaff")
+    public static Item RICE_CHAFF;
+    @ObjectHolder("rustichromia:rye_chaff")
+    public static Item RYE_CHAFF;
+    @ObjectHolder("rustichromia:maize_chaff")
+    public static Item MAIZE_CHAFF;
 
-    public static Fluid FLUID_THATCH = new Fluid("thatch", new ResourceLocation(Rustichromia.MODID,"blocks/thatch_still"), new ResourceLocation(Rustichromia.MODID,"blocks/thatch_flowing")).setDensity(2000);
 
     public static void init() {
         //This doesn't work right.
@@ -221,10 +193,7 @@ public class Registry {
     public void registerBlocks(RegistryEvent.Register<Block> event) {
         CreativeTabs mystmechTab = MysticalMechanicsAPI.IMPL.getCreativeTab();
 
-        FluidRegistry.registerFluid(FLUID_THATCH);
 
-        MOLTEN_STEEL = (BlockSnakeFluid) new BlockSnakeMetal(MapColor.WHITE_STAINED_HARDENED_CLAY).setRegistryName(Rustichromia.MODID, "molten_steel").setUnlocalizedName("molten_steel").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
-        BLOCK_STEEL = new Block(Material.IRON,MapColor.WHITE_STAINED_HARDENED_CLAY).setRegistryName(Rustichromia.MODID, "block_steel").setUnlocalizedName("block_steel").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
         RECEPTACLE = new BlockMetalReceptacle(Material.IRON).setRegistryName(Rustichromia.MODID, "receptacle").setUnlocalizedName("receptacle").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
         EXTRUDER = new BlockExtrusionForm(Material.IRON).setRegistryName(Rustichromia.MODID, "extruder").setUnlocalizedName("extruder").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
         WINDMILL = new BlockWindmill(Material.WOOD) {
@@ -339,21 +308,11 @@ public class Registry {
                 return 3;
             }
         }.setRegistryName(Rustichromia.MODID, "assembler3").setUnlocalizedName("assembler3").setCreativeTab(mystmechTab).setHardness(5.0F).setResistance(10.0F);
-        COTTON_SEED = new BlockCotton().setRegistryName(Rustichromia.MODID, "cotton_seed").setUnlocalizedName("cotton_seed").setCreativeTab(CreativeTabs.MATERIALS);
-        WINDVANE = new BlockWindVane(Material.IRON).setRegistryName(Rustichromia.MODID, "windvane").setUnlocalizedName("windvane").setCreativeTab(CreativeTabs.DECORATIONS).setHardness(5.0F).setResistance(10.0F);
         HOPPER_WOOD = new BlockHopperWood(Material.WOOD).setRegistryName(Rustichromia.MODID, "hopper_wood").setUnlocalizedName("hopper_wood").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
-        THATCH = new BlockThatch(Material.GRASS).setRegistryName(Rustichromia.MODID, "thatch").setUnlocalizedName("thatch").setCreativeTab(CreativeTabs.DECORATIONS).setHardness(5.0F).setResistance(10.0F);
-        THATCH_BLOCK = new BlockThatchBarrel(Material.GRASS).setRegistryName(Rustichromia.MODID, "thatch_block").setUnlocalizedName("thatch_block").setCreativeTab(CreativeTabs.DECORATIONS).setHardness(5.0F).setResistance(10.0F);
-        MOLTEN_HAY = (BlockSnakeFluid) new BlockSnakeHay().setRegistryName(Rustichromia.MODID, "molten_hay").setUnlocalizedName("molten_hay").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
         FEEDER = new BlockFeeder(Material.WOOD).setRegistryName(Rustichromia.MODID, "feeder").setUnlocalizedName("feeder").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
-        THATCH_BED = new BlockThatchBed(Material.GRASS).setRegistryName(Rustichromia.MODID, "thatch_bed").setUnlocalizedName("thatch_bed").setCreativeTab(CreativeTabs.DECORATIONS).setHardness(5.0F).setResistance(10.0F);
-        CART = new BlockCart(Material.IRON).setRegistryName(Rustichromia.MODID, "cart").setUnlocalizedName("cart").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
-        CART_CONTROL = new BlockCartControl(Material.CIRCUITS).setRegistryName(Rustichromia.MODID, "cart_control").setUnlocalizedName("cart_control").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
 
         HAY_COMPACTOR = new BlockHayCompactor(Material.IRON).setRegistryName(Rustichromia.MODID, "hay_compactor").setUnlocalizedName("hay_compactor").setCreativeTab(CreativeTabs.REDSTONE).setHardness(5.0F).setResistance(10.0F);
 
-        event.getRegistry().register(MOLTEN_STEEL);
-        event.getRegistry().register(BLOCK_STEEL);
         event.getRegistry().register(RECEPTACLE);
         event.getRegistry().register(EXTRUDER);
         event.getRegistry().register(WINDMILL);
@@ -368,16 +327,8 @@ public class Registry {
         event.getRegistry().register(ASSEMBLER_1);
         event.getRegistry().register(ASSEMBLER_2);
         event.getRegistry().register(ASSEMBLER_3);
-        event.getRegistry().register(COTTON_SEED);
-        event.getRegistry().register(WINDVANE);
         event.getRegistry().register(HOPPER_WOOD);
-        event.getRegistry().register(THATCH);
-        event.getRegistry().register(THATCH_BLOCK);
-        event.getRegistry().register(MOLTEN_HAY);
         event.getRegistry().register(FEEDER);
-        event.getRegistry().register(THATCH_BED);
-        event.getRegistry().register(CART);
-        event.getRegistry().register(CART_CONTROL);
 
         event.getRegistry().register(HAY_COMPACTOR);
     }
@@ -386,8 +337,6 @@ public class Registry {
     public void registerItems(RegistryEvent.Register<Item> event) {
         CreativeTabs mystmechTab = MysticalMechanicsAPI.IMPL.getCreativeTab();
 
-        event.getRegistry().register(new ItemBlock(MOLTEN_STEEL).setRegistryName(MOLTEN_STEEL.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(BLOCK_STEEL).setRegistryName(BLOCK_STEEL.getRegistryName()));
         event.getRegistry().register(new ItemBlock(RECEPTACLE).setRegistryName(RECEPTACLE.getRegistryName()));
         event.getRegistry().register(new ItemBlock(EXTRUDER).setRegistryName(EXTRUDER.getRegistryName()));
         event.getRegistry().register(new ItemBlock(WINDMILL).setRegistryName(WINDMILL.getRegistryName()));
@@ -402,71 +351,60 @@ public class Registry {
         event.getRegistry().register(new ItemBlock(ASSEMBLER_1).setRegistryName(ASSEMBLER_1.getRegistryName()));
         event.getRegistry().register(new ItemBlock(ASSEMBLER_2).setRegistryName(ASSEMBLER_2.getRegistryName()));
         event.getRegistry().register(new ItemBlock(ASSEMBLER_3).setRegistryName(ASSEMBLER_3.getRegistryName()));
-        event.getRegistry().register(new ItemSeed(COTTON_SEED).setRegistryName(COTTON_SEED.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(WINDVANE).setRegistryName(WINDVANE.getRegistryName()));
         event.getRegistry().register(new ItemBlock(HOPPER_WOOD).setRegistryName(HOPPER_WOOD.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(THATCH).setRegistryName(THATCH.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(THATCH_BLOCK).setRegistryName(THATCH_BLOCK.getRegistryName()));
-        event.getRegistry().register(new ItemBlock(MOLTEN_HAY).setRegistryName(MOLTEN_HAY.getRegistryName()));
         event.getRegistry().register(new ItemBlock(FEEDER).setRegistryName(FEEDER.getRegistryName()));
-        event.getRegistry().register(new ItemBlockBed(THATCH_BED).setRegistryName(THATCH_BED.getRegistryName()));
-        event.getRegistry().register(new ItemBlockCart(CART).setRegistryName(CART.getRegistryName()));
-        event.getRegistry().register(new ItemBlockCartControl(CART_CONTROL).setRegistryName(CART_CONTROL.getRegistryName()));
 
         event.getRegistry().register(new ItemBlock(HAY_COMPACTOR).setRegistryName(HAY_COMPACTOR.getRegistryName()));
 
-        Control.register(Arrow.SUPPLIER);
-        Control.register(ArrowRedstone.SUPPLIER);
-        Control.register(Rail.SUPPLIER);
-        Control.register(ArrowRail.SUPPLIER);
-        Control.register(RailCurve.SUPPLIER);
-        Control.register(Path.SUPPLIER);
-        Control.register(PathCurve.SUPPLIER);
-        Control.register(Trigger.SUPPLIER);
-        Control.register(Stop.SUPPLIER);
-        Control.register(StopRedstone.SUPPLIER);
-        Control.register(StopFill.SUPPLIER);
-        Control.register(StopEmpty.SUPPLIER);
-
-        CartContent.register(ContentItems.SUPPLIER);
-
-        event.getRegistry().register(SHAMSHIR = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"shamshir")).setUnlocalizedName("shamshir").setCreativeTab(CreativeTabs.COMBAT));
-        event.getRegistry().register(SPEAR = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"spear")).setUnlocalizedName("spear").setCreativeTab(CreativeTabs.COMBAT));
-        event.getRegistry().register(BLASTSPEAR = new ItemBlastSpear().setRegistryName(new ResourceLocation(Rustichromia.MODID,"blastspear")).setUnlocalizedName("blastspear").setCreativeTab(CreativeTabs.COMBAT));
         event.getRegistry().register(WINDMILL_BLADE = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"windmill_blade")).setUnlocalizedName("windmill_blade").setCreativeTab(mystmechTab));
         event.getRegistry().register(GEAR_SPECKLED = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"gear_speckled")).setUnlocalizedName("gear_speckled").setCreativeTab(mystmechTab));
         event.getRegistry().register(GEAR_WOOD = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"gear_wood")).setUnlocalizedName("gear_wood").setCreativeTab(mystmechTab));
         event.getRegistry().register(DISK_STONE = new ItemDisk(1).setRegistryName(new ResourceLocation(Rustichromia.MODID,"disk_stone")).setUnlocalizedName("disk_stone").setCreativeTab(mystmechTab));
         event.getRegistry().register(DISK_SANDSTONE = new ItemDisk(1).setRegistryName(new ResourceLocation(Rustichromia.MODID,"disk_sandstone")).setUnlocalizedName("disk_sandstone").setCreativeTab(mystmechTab));
         event.getRegistry().register(DISK_RED_SANDSTONE = new ItemDisk(1).setRegistryName(new ResourceLocation(Rustichromia.MODID,"disk_red_sandstone")).setUnlocalizedName("disk_red_sandstone").setCreativeTab(mystmechTab));
-        event.getRegistry().register(COTTON_CANDY = new ItemFood(4,2f, false).setRegistryName(new ResourceLocation(Rustichromia.MODID,"cotton_candy")).setUnlocalizedName("cotton_candy").setCreativeTab(CreativeTabs.FOOD));
-        event.getRegistry().register(COTTON_CANDY_STICK = new ItemCottonCandy(6, 1.6f, false).setRegistryName(new ResourceLocation(Rustichromia.MODID,"cotton_candy_stick")).setUnlocalizedName("cotton_candy_stick").setCreativeTab(CreativeTabs.FOOD));
-        event.getRegistry().register(COTTON = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"cotton")).setUnlocalizedName("cotton").setCreativeTab(CreativeTabs.MATERIALS));
-        event.getRegistry().register(COTTON_WOOL = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"cotton_wool")).setUnlocalizedName("cotton_wool").setCreativeTab(CreativeTabs.MATERIALS));
         event.getRegistry().register(DUST_WOOD = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"dust_wood")).setUnlocalizedName("dust_wood").setCreativeTab(CreativeTabs.MATERIALS));
         event.getRegistry().register(PLATE_WOOD = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"plate_wood")).setUnlocalizedName("plate_wood").setCreativeTab(CreativeTabs.MATERIALS));
         event.getRegistry().register(DUST_FLOUR = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"dust_flour")).setUnlocalizedName("dust_flour").setCreativeTab(CreativeTabs.MATERIALS));
+		//Chaff
         event.getRegistry().register(WHEAT_CHAFF = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"wheat_chaff")).setUnlocalizedName("wheat_chaff").setCreativeTab(CreativeTabs.MATERIALS));
+        event.getRegistry().register(BARLEY_CHAFF = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"barley_chaff")).setUnlocalizedName("barley_chaff").setCreativeTab(CreativeTabs.MATERIALS));
+        event.getRegistry().register(OAT_CHAFF = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"oat_chaff")).setUnlocalizedName("oat_chaff").setCreativeTab(CreativeTabs.MATERIALS));
+        event.getRegistry().register(RICE_CHAFF = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"rice_chaff")).setUnlocalizedName("rice_chaff").setCreativeTab(CreativeTabs.MATERIALS));
+        event.getRegistry().register(RYE_CHAFF = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"rye_chaff")).setUnlocalizedName("rye_chaff").setCreativeTab(CreativeTabs.MATERIALS));
+        event.getRegistry().register(MAIZE_CHAFF = new Item().setRegistryName(new ResourceLocation(Rustichromia.MODID,"maize_chaff")).setUnlocalizedName("maize_chaff").setCreativeTab(CreativeTabs.MATERIALS));
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void registerOreDict(RegistryEvent.Register<IRecipe> event) {
         OreDictionary.registerOre("dustWood", DUST_WOOD);
         OreDictionary.registerOre("plateWood", PLATE_WOOD);
+		
         OreDictionary.registerOre("gearWood", GEAR_WOOD);
         OreDictionary.registerOre("gearDiorite", GEAR_SPECKLED);
+		
         OreDictionary.registerOre("gemCoal", new ItemStack(Items.COAL,1,0));
         OreDictionary.registerOre("gemCoal", new ItemStack(Items.COAL,1,1));
+		
         OreDictionary.registerOre("dustFlour", DUST_FLOUR);
         OreDictionary.registerOre("foodFlour", DUST_FLOUR);
+		
         OreDictionary.registerOre("chaffWheat", WHEAT_CHAFF);
+        OreDictionary.registerOre("chaffAny", WHEAT_CHAFF);
+        OreDictionary.registerOre("chaffBarley", BARLEY_CHAFF);
+        OreDictionary.registerOre("chaffAny", BARLEY_CHAFF);
+        OreDictionary.registerOre("chaffOat", OAT_CHAFF);
+        OreDictionary.registerOre("chaffAny", OAT_CHAFF);
+        OreDictionary.registerOre("chaffRice", RICE_CHAFF);
+        OreDictionary.registerOre("chaffAny", RICE_CHAFF);
+        OreDictionary.registerOre("chaffRye", RYE_CHAFF);
+        OreDictionary.registerOre("chaffAny", RYE_CHAFF);
+        OreDictionary.registerOre("chaffMaize", MAIZE_CHAFF);
+        OreDictionary.registerOre("chaffAny", MAIZE_CHAFF);
     }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void registerModels(ModelRegistryEvent event) {
-        registerItemModel(Item.getItemFromBlock(MOLTEN_STEEL), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(BLOCK_STEEL), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(RECEPTACLE), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(EXTRUDER), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(WINDMILL), 0, "inventory");
@@ -490,20 +428,11 @@ public class Registry {
         registerItemModel(Item.getItemFromBlock(ASSEMBLER_1), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(ASSEMBLER_2), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(ASSEMBLER_3), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(COTTON_SEED), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(CRANK), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(CRANK), 1, "normal");
-        registerItemModel(Item.getItemFromBlock(WINDVANE), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(WINDVANE), 1, "normal");
         registerItemModel(Item.getItemFromBlock(HOPPER_WOOD), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(HOPPER_WOOD), 1, "cog");
-        registerItemModel(Item.getItemFromBlock(THATCH), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(THATCH_BLOCK), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(MOLTEN_HAY), 0, "inventory");
         registerItemModel(Item.getItemFromBlock(FEEDER), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(THATCH_BED), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(CART), 0, "inventory");
-        registerItemModel(Item.getItemFromBlock(CART), 0, "normal");
 
         registerItemModel(Item.getItemFromBlock(HAY_COMPACTOR), 0, "inventory");
 
@@ -513,69 +442,23 @@ public class Registry {
         registerItemModel(DISK_STONE, 0, "inventory");
         registerItemModel(DISK_SANDSTONE, 0, "inventory");
         registerItemModel(DISK_RED_SANDSTONE, 0, "inventory");
-        registerItemModel(SHAMSHIR, 0, "inventory");
-        registerItemModel(SPEAR, 0, "inventory");
-        registerItemModel(SPEAR, 1, "normal");
-        registerItemModel(BLASTSPEAR, 0, "inventory");
-        registerItemModel(COTTON_CANDY, 0, "inventory");
-        registerItemModel(COTTON_CANDY_STICK, 0, "inventory");
-        registerItemModel(COTTON, 0, "inventory");
-        registerItemModel(COTTON_WOOL, 0, "inventory");
         registerItemModel(DUST_WOOD, 0, "inventory");
         registerItemModel(PLATE_WOOD, 0, "inventory");
         registerItemModel(DUST_FLOUR, 0, "inventory");
         registerItemModel(WHEAT_CHAFF, 0, "inventory");
+        registerItemModel(BARLEY_CHAFF, 0, "inventory");
+        registerItemModel(OAT_CHAFF, 0, "inventory");
+        registerItemModel(RICE_CHAFF, 0, "inventory");
+        registerItemModel(RYE_CHAFF, 0, "inventory");
+        registerItemModel(MAIZE_CHAFF, 0, "inventory");
 
-        ModelLoader.setCustomStateMapper(THATCH_BED, new StateMap.Builder().ignore(BlockBed.OCCUPIED).build());
         ModelLoader.setCustomStateMapper(HAY_COMPACTOR, new StateMap.Builder().ignore(BlockHayCompactor.TYPE).build());
-        ModelLoader.setCustomStateMapper(MOLTEN_STEEL, new StateMap.Builder().ignore(BlockSnakeFluid.TRAIL).build());
-        ModelLoader.setCustomStateMapper(MOLTEN_HAY, new StateMap.Builder().ignore(BlockSnakeFluid.TRAIL).build());
 
-        final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(THATCH.getRegistryName(), "normal");
 
-        ModelLoader.setCustomStateMapper(THATCH, new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return modelResourceLocation;
-            }
-        });
-
-        ItemBlockCartControl cartControl = (ItemBlockCartControl) Item.getItemFromBlock(CART_CONTROL);
-        ModelLoader.setCustomMeshDefinition(cartControl, cartControl::getModel);
-        ModelLoader.registerItemVariants(cartControl, Control.getSuppliers().stream().map(ControlSupplier::getModel).toArray(ResourceLocation[]::new));
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerItemModel(@Nonnull Item item, int meta, String variant) {
         ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void onTextureStitch(TextureStitchEvent event) {
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cotton"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cotton_candy"));
-
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/thatch_still"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/thatch_flowing"));
-
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/arrow"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/arrow_redstone_on"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/arrow_redstone_off"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/alternate"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/optional"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/rail"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/rail_straight"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/rail_curve"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/rail_curve_mirror"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/path_straight"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/path_curve"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/path_curve_mirror"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/trigger"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/trigger0"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/trigger1"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/stop"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/stop_redstone_on"));
-        event.getMap().registerSprite(new ResourceLocation(Rustichromia.MODID,"blocks/cart_control/stop_redstone_off"));
     }
 }
